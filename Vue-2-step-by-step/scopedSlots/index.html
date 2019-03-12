@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Vue Scoped Slots</title>
+    <!--<link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css">-->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700" rel="stylesheet">
+</head>
+<style>
+    html,body{
+        font-family:"Open Sans", sans-serif;
+    ;}
+    .nbar {
+        background-image: radial-gradient(circle at 0 100%, #6585b0, #2e4469);
+    }
+    a {
+        text-decoration: none;
+        color: rgba(68,90,124,0.5)
+    }
+</style>
+<body>
+    <div id="app">
+        <div class="nbar">
+            <div class="text-grey-lightest md:flex md:justify-center text-center md:w-1/2 md:mx-auto pt-8">
+                <a href="/lessons" class="text-grey-dark block md:px-8 md:flex-1 uppercase font-bold text-transparent-50 hover:text-white pb-8">
+                    Catalog
+                </a>
+                <series-dropdown
+                        :items = "{
+                        'PHP': [{'slug': 'p-slug-text', 'title': 'PHP Object-Oriented Bootcamp'},{'slug': 'p-slug-text1', 'title': 'p-title-text1'},{'slug': 'p-slug-text2', 'title': 'p-title-text2'}],
+                        'C#': [{'slug': 'c-slug-text', 'title': 'c-title-text'},{'slug': 'c-slug-text1', 'title': 'c-title-text1'}],
+                        'JavaScript': [{'slug': 'j-slug-text', 'title': 'j-title-text'},{'slug': 'j-slug-text1', 'title': 'j-title-text1'},{'slug': 'j-slug-text2', 'title': 'j-title-text2'}],
+                        'Testing': [{'slug': 't-slug-text', 'title': 't-title-text'},{'slug': 't-slug-text1', 'title': 't-title-text1'}],
+                        'Tooling': [{'slug': 'l-slug-text', 'title': 'l-title-text'},{'slug': 'l-slug-text1', 'title': 'l-title-text1'}]
+                        }"
+                ></series-dropdown>
+                <!--<a href="/series" class="block md:px-8 md:flex-1 uppercase text-transparent-50 font-bold hover:text-white pb-8">-->
+                <!--Series-->
+                <!--</a>-->
+                <a href="/podcast" class="text-grey-dark block md:px-8 md:flex-1 uppercase font-bold text-transparent-50 hover:text-white pb-8">
+                    Podcast
+                </a>
+                <a href="/discuss" class="text-grey-dark block md:px-8 md:flex-1 uppercase font-bold text-transparent-50 hover:text-white pb-8">
+                    Discussions
+                </a>
+            </div>
+        </div>
+
+        <!--<div class="absolute w-full z-10 bg-green" style="height: 300px">-->
+            <!--<div class="container mx-auto py-8">-->
+                <!--Hello-->
+            <!--</div>-->
+        <!--</div>-->
+
+        <portal-target name="nav-after" slim></portal-target><!--the slim attribute tell vue portal don't put any wrap around div, we just need the anchor tag, or use inline -->
+
+
+        <menulist :items="['one', 'two', 'three','four']">
+
+            <!--any text here will instantly override the slot -->
+            <!--if you want to access the data from original component, {{item}} will not work because we are at different state-->
+
+            <!--<template scope="props">&lt;!&ndash;now you can access any props from component slot tag, you can use any name for this props, just a temporary variable, scope="data"&ndash;&gt;-->
+            <template slot="menu-item" slot-scope="props"><!--if you use name slot, you need explicit which slot you want to override, otherwise you will not override it. -->
+                <!--<template scope="{bar}">--><!--this is ex6 basic destructure, will only take one certain value from props object.-->
+                <!--<h2 v-text="bar">--><!--this will show 'pass many and any thing you want'-->
+                <!--<h2 v-text="props.item"></h2>&lt;!&ndash;props.thing will return foo, see second line of slot&ndash;&gt;-->
+                <em v-text="props.item"></em>
+                <p class="text-xs" v-text="props.bar"></p>
+            </template>
+        </menulist>
+
+        <!--<div class="main-carousel" data-flickity='{ "cellAlign": "left", "contain": true, "wrapAround": true}'>-->
+
+        <!--<img src="https://placeimg.com/640/480/any">-->
+        <!--<img src="https://placeimg.com/640/480/any?2">-->
+        <!--<img src="https://placeimg.com/640/480/any?3">-->
+        <!--<img src="https://placeimg.com/640/480/any?4">-->
+        <!--<img src="https://placeimg.com/640/480/any?5">-->
+
+        <!--</div>-->
+
+        <carousel :autoplay="false">
+            <img src="https://placeimg.com/640/480/any">
+            <img src="https://placeimg.com/640/480/any?2">
+            <img src="https://placeimg.com/640/480/any?3">
+            <img src="https://placeimg.com/640/480/any?4">
+            <img src="https://placeimg.com/640/480/any?5">
+        </carousel>
+
+        <h2>Another One</h2>
+
+        <div style="width:600px; height:150px;">
+            <carousel :autoplay="true" :wraparound="false">
+                <img style="height:150px;" src="https://placeimg.com/640/480/any">
+                <img style="height:150px;" src="https://placeimg.com/640/480/any?2">
+                <img style="height:150px;" src="https://placeimg.com/640/480/any?3">
+                <img style="height:150px;" src="https://placeimg.com/640/480/any?4">
+                <img style="height:150px;" src="https://placeimg.com/640/480/any?5">
+            </carousel>
+        </div>
+
+        <div class="column">
+            <h5 class="text-grey font-semibold mb-6 uppercase"></h5>
+            <ul class="leading-loose">
+                <li>
+                    <support-button></support-button>
+                </li>
+            </ul>
+        </div>
+
+        <div class="container">
+            <div class="w-3/5 m-auto generic-contont">
+                <header class="mb-10 text-center">
+                    <h1 class="text-3xl mb-1">FQA</h1>
+                    <p>It's okay. From time to time, we all have questions.</p>
+                </header>
+                <accordion
+                        :items="[
+                                 {'title': 'p-title-text', 'body': 'PHP Object-Oriented Bootcamp'},
+                                 {'title': 'c-title-text', 'body': 'c-body-text'},
+                                 {'title': 'j-title-text', 'body': 'j-body-text'},
+                                 {'title': 't-title-text', 'body': 't-body-text'},
+                                 {'title': 'l-title-text', 'body': 'l-body-text'}
+                                ]"
+                ></accordion>
+            </div>
+        </div>
+
+
+    </div>
+    <script src="./dist/build.js"></script>
+    <!--<script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>-->
+</body>
+</html>

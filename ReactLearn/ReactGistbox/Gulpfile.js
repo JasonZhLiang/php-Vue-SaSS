@@ -1,0 +1,21 @@
+// var gulp = require('gulp');
+// var browserify = require('browserify');
+// var balelify = reqire('bableify');
+// var source = require('vinyl-source-stream');
+//
+// gulp.task('browserify', function () {
+//     return browserify('./js/app.js')
+//         .transform(babelify, { stage: 0 })
+//         .bundle()
+//         .on('error', function(e){
+//             console.log(e.message);
+//
+//             this.emit('end');
+//         })
+//         .pipe(source('bundle.js'))
+//         .pipe(gulp.dest('js'));
+// });
+//
+// gulp.task('watch', function () {
+//     gulp.watch('**/*.js',['browserify']);
+// });

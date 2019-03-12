@@ -1,0 +1,12 @@
+<?php namespace jason\task;
+
+class TestRepository implements TestRepositoryInterface
+{
+    public function getCompleted(){
+
+    }
+
+    public function getInProcess(){
+
+    }
+}
